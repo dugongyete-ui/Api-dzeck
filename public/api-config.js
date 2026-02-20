@@ -35,9 +35,17 @@ function getBackendUrl() {
 function apiFetch(path, options) {
     options = options || {};
     options.credentials = 'include';
+    options.mode = 'cors';
     if (!options.headers) options.headers = {};
     if (!options.headers['Content-Type'] && options.method && options.method !== 'GET') {
         options.headers['Content-Type'] = 'application/json';
     }
-    return fetch(API_BASE + path, options);
+    return fetch(API_BASE + path, options)
+        .then(function(response) {
+            return response;
+        })
+        .catch(function(error) {
+            console.error('API request failed:', path, error);
+            throw error;
+        });
 }

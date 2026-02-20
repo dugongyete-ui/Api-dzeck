@@ -91,11 +91,16 @@ if os.getenv('LOG_LEVEL'):
 
 @app.after_request
 def add_cache_control(response):
-    """Disable caching for all responses."""
     response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
     response.headers['Permissions-Policy'] = 'clipboard-write=(self)'
+    origin = request.headers.get('Origin', '')
+    if origin in _get_allowed_origins():
+        response.headers['Access-Control-Allow-Origin'] = origin
+        response.headers['Access-Control-Allow-Credentials'] = 'true'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
     return response
 
 logger.info("Api Dzeck Ai Web API - Starting server...")
