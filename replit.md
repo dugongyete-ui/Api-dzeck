@@ -10,10 +10,14 @@ Api Dzeck Ai Web API provides a self-hosted, free HTTP interface to various Larg
 - No image generation features (removed - were blocked/non-functional)
 
 ## Recent Changes (2026-02-21)
-- **Dynamic CORS**: CORS origins now auto-detected from REPLIT_DEV_DOMAIN, REPLIT_DOMAINS, and REPLIT_DEPLOYMENT_URL env vars. No more hardcoded Replit URLs in CORS config.
-- **Explicit CORS headers**: after_request handler now sets Access-Control-Allow-Origin, Credentials, Headers, Methods for matched origins.
-- **Deployment config**: VM deployment configured for 24/7 backend operation.
-- **Keep-alive improved**: Falls back to REPLIT_DOMAINS if REPLIT_DEV_DOMAIN not available (works in deployment).
+- **Fixed Firebase-to-backend connectivity**: All API URLs now point to production deployment URL (`https://api-gateway--manyse.replit.app`) instead of Replit dev domain. Firebase frontend can now connect even when workspace is stopped.
+- **Updated api-config.js**: API_BASE changed to deployment URL.
+- **Updated firebase.json**: All redirects now point to deployment URL.
+- **Updated deploy.sh**: Now uses hardcoded deployment URL instead of REPLIT_DEV_DOMAIN (which is only available during development).
+- **CORS expanded**: Production deployment URL added to allowed origins list, plus auto-detection from REPL_SLUG/REPL_OWNER env vars.
+- **Keep-alive improved**: Uses REPLIT_DEPLOYMENT_URL in production, falls back to dev domain or localhost.
+- **Deploy config**: Autoscale deployment with gunicorn (2 workers, 600s timeout).
+- **Explicit CORS headers**: after_request handler sets Access-Control-Allow-Origin, Credentials, Headers, Methods for matched origins.
 - **apiFetch error handling**: Added error logging and cors mode to frontend API requests.
 
 ## Changes (2026-02-20)
