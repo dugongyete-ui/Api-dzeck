@@ -64,6 +64,7 @@ def _get_allowed_origins():
     origins = [
         "https://api-dzeck.web.app",
         "https://api-dzeck.firebaseapp.com",
+        "https://api-gateway--manyse.replit.app",
         "http://localhost:5000",
     ]
     dev_domain = os.environ.get('REPLIT_DEV_DOMAIN', '')
@@ -81,6 +82,12 @@ def _get_allowed_origins():
     if replit_deployment:
         if replit_deployment not in origins:
             origins.append(replit_deployment)
+    slug_domain = os.environ.get('REPL_SLUG', '')
+    owner = os.environ.get('REPL_OWNER', '')
+    if slug_domain and owner:
+        deploy_url = f"https://{slug_domain}--{owner}.replit.app"
+        if deploy_url not in origins:
+            origins.append(deploy_url)
     return origins
 
 CORS(app, supports_credentials=True, origins=_get_allowed_origins())
@@ -1741,11 +1748,15 @@ def _start_keep_alive():
     import time as _time
     import urllib.request
     def keep_alive_worker():
-        replit_domain = os.environ.get('REPLIT_DEV_DOMAIN', '') or os.environ.get('REPLIT_DOMAINS', '').split(',')[0].strip()
-        if not replit_domain:
-            logger.info("No Replit domain found, keep-alive disabled")
-            return
-        url = f"https://{replit_domain}/ping"
+        deploy_url = os.environ.get('REPLIT_DEPLOYMENT_URL', '')
+        if deploy_url:
+            url = f"{deploy_url.rstrip('/')}/ping"
+        else:
+            replit_domain = os.environ.get('REPLIT_DEV_DOMAIN', '') or os.environ.get('REPLIT_DOMAINS', '').split(',')[0].strip()
+            if not replit_domain:
+                url = "http://127.0.0.1:5000/ping"
+            else:
+                url = f"https://{replit_domain}/ping"
         logger.info(f"Keep-alive started, pinging {url} every 4 minutes")
         while True:
             try:
