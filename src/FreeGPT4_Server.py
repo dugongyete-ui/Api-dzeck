@@ -60,7 +60,30 @@ app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = 86400 * 7
 app.config['SESSION_COOKIE_PATH'] = '/'
 
-CORS(app, supports_credentials=True, origins=["https://api-dzeck.web.app", "https://api-dzeck.firebaseapp.com", "http://localhost:5000", "https://8f6cfc53-2381-4d25-ace3-e82c59d4ce8e-00-3usybdxia9as2.picard.replit.dev"])
+def _get_allowed_origins():
+    origins = [
+        "https://api-dzeck.web.app",
+        "https://api-dzeck.firebaseapp.com",
+        "http://localhost:5000",
+    ]
+    dev_domain = os.environ.get('REPLIT_DEV_DOMAIN', '')
+    if dev_domain:
+        origins.append(f"https://{dev_domain}")
+    replit_domains = os.environ.get('REPLIT_DOMAINS', '')
+    if replit_domains:
+        for d in replit_domains.split(','):
+            d = d.strip()
+            if d:
+                url = f"https://{d}"
+                if url not in origins:
+                    origins.append(url)
+    replit_deployment = os.environ.get('REPLIT_DEPLOYMENT_URL', '')
+    if replit_deployment:
+        if replit_deployment not in origins:
+            origins.append(replit_deployment)
+    return origins
+
+CORS(app, supports_credentials=True, origins=_get_allowed_origins())
 
 # Set up logging
 if os.getenv('LOG_LEVEL'):
@@ -1713,9 +1736,9 @@ def _start_keep_alive():
     import time as _time
     import urllib.request
     def keep_alive_worker():
-        replit_domain = os.environ.get('REPLIT_DEV_DOMAIN', '')
+        replit_domain = os.environ.get('REPLIT_DEV_DOMAIN', '') or os.environ.get('REPLIT_DOMAINS', '').split(',')[0].strip()
         if not replit_domain:
-            logger.info("No REPLIT_DEV_DOMAIN found, keep-alive disabled")
+            logger.info("No Replit domain found, keep-alive disabled")
             return
         url = f"https://{replit_domain}/ping"
         logger.info(f"Keep-alive started, pinging {url} every 4 minutes")
