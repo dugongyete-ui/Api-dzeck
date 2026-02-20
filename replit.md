@@ -9,7 +9,14 @@ Api Dzeck Ai Web API provides a self-hosted, free HTTP interface to various Larg
 - No chat limits: removed input truncation, history limits, and context windows
 - No image generation features (removed - were blocked/non-functional)
 
-## Recent Changes (2026-02-20)
+## Recent Changes (2026-02-21)
+- **Dynamic CORS**: CORS origins now auto-detected from REPLIT_DEV_DOMAIN, REPLIT_DOMAINS, and REPLIT_DEPLOYMENT_URL env vars. No more hardcoded Replit URLs in CORS config.
+- **Explicit CORS headers**: after_request handler now sets Access-Control-Allow-Origin, Credentials, Headers, Methods for matched origins.
+- **Deployment config**: VM deployment configured for 24/7 backend operation.
+- **Keep-alive improved**: Falls back to REPLIT_DOMAINS if REPLIT_DEV_DOMAIN not available (works in deployment).
+- **apiFetch error handling**: Added error logging and cors mode to frontend API requests.
+
+## Changes (2026-02-20)
 - **Fixed Firebase API redirect**: firebase.json now has `redirects` for `/api/chat`, `/v1/chat/completions`, `/stream`, `/health`, `/ping` that 307-redirect to Replit backend. Previously, all paths were caught by the `**` rewrite to index.html, causing API calls to Firebase URL to return HTML instead of JSON.
 - **Updated deploy.sh**: Now automatically updates both `api-config.js` AND `firebase.json` redirects with the current Replit backend URL before deploying to Firebase.
 - **Updated CORS**: Server CORS origins updated to include current Replit domain.
