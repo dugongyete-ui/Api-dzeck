@@ -1,5 +1,5 @@
 #!/bin/bash
-DEPLOY_URL="https://api-dzeck--mio7wxa.replit.app"
+DEPLOY_URL="https://project-p--cz8ihvdx.replit.app"
 
 echo "Using deployment URL: $DEPLOY_URL"
 
