@@ -10,15 +10,16 @@ Api Dzeck Ai Web API provides a self-hosted, free HTTP interface to various Larg
 - No image generation features (removed - were blocked/non-functional)
 
 ## Recent Changes (2026-02-21)
-- **Fixed Firebase-to-backend connectivity**: All API URLs now point to production deployment URL (`https://api-gateway--manyse.replit.app`) instead of Replit dev domain. Firebase frontend can now connect even when workspace is stopped.
-- **Updated api-config.js**: API_BASE changed to deployment URL.
-- **Updated firebase.json**: All redirects now point to deployment URL.
-- **Updated deploy.sh**: Now uses hardcoded deployment URL instead of REPLIT_DEV_DOMAIN (which is only available during development).
-- **CORS expanded**: Production deployment URL added to allowed origins list, plus auto-detection from REPL_SLUG/REPL_OWNER env vars.
+- **Fixed ALL URLs to production**: Every URL reference now uses `https://api-dzeck--lizqz5hk.replit.app` (the correct deployment URL). Removed all references to dev/preview URLs.
+- **PRODUCTION_URL constant**: Server now has `PRODUCTION_URL` and `_get_production_base_url()` helper to always return the correct URL, never dev URLs.
+- **API key endpoints fixed**: API key list and generate endpoints now show production URL instead of dev URL. Old dev URLs in database auto-corrected.
+- **OpenAI-compatible response format**: `/v1/chat/completions` now returns complete official OpenAI format with `system_fingerprint`, `logprobs`, proper `usage` token counts, `service_tier`, and detailed error objects with `code`, `param`, `type`, `message`.
+- **API key validation improved**: Checks for disabled keys, returns proper error codes (`missing_api_key`, `invalid_api_key`, `api_key_disabled`, `missing_messages`).
+- **Updated api-config.js**: API_BASE changed to production deployment URL.
+- **Updated firebase.json**: All redirects now point to production deployment URL.
+- **Updated deploy.sh**: Now uses hardcoded production deployment URL.
+- **CORS expanded**: Production deployment URL added to allowed origins list.
 - **Keep-alive improved**: Uses REPLIT_DEPLOYMENT_URL in production, falls back to dev domain or localhost.
-- **Deploy config**: Autoscale deployment with gunicorn (2 workers, 600s timeout).
-- **Explicit CORS headers**: after_request handler sets Access-Control-Allow-Origin, Credentials, Headers, Methods for matched origins.
-- **apiFetch error handling**: Added error logging and cors mode to frontend API requests.
 
 ## Changes (2026-02-20)
 - **Fixed Firebase API redirect**: firebase.json now has `redirects` for `/api/chat`, `/v1/chat/completions`, `/stream`, `/health`, `/ping` that 307-redirect to Replit backend. Previously, all paths were caught by the `**` rewrite to index.html, causing API calls to Firebase URL to return HTML instead of JSON.
