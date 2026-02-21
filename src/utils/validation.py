@@ -150,6 +150,9 @@ def validate_provider(provider: str, available_providers: Dict[str, Any]) -> tup
     if not provider:
         return False, "Provider cannot be empty"
     
+    provider_aliases = {"g4f": "Auto", "gpt4free": "Auto", "auto": "Auto"}
+    if provider in provider_aliases:
+        provider = provider_aliases[provider]
     if provider not in available_providers:
         return False, f"Provider '{provider}' not available. Available: {', '.join(available_providers.keys())}"
     

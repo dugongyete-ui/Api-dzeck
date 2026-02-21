@@ -487,6 +487,8 @@ def index():
                     username = key_data.get("created_by", "admin")
                     if not provider_override:
                         provider_override = key_data.get("provider", "Auto")
+                        if provider_override in ("g4f", "gpt4free", "auto"):
+                            provider_override = "Auto"
                     if not model_override:
                         model_override = key_data.get("model", "")
                 else:
@@ -579,6 +581,8 @@ def api_chat():
     
     if not provider:
         provider = key_data.get("provider", "Auto")
+    if provider in ("g4f", "gpt4free", "auto"):
+        provider = "Auto"
     if not model:
         model = key_data.get("model", "") or None
     
@@ -1747,6 +1751,8 @@ def openai_compatible_endpoint():
     messages = data.get("messages", [])
     model_requested = data.get("model") or key_data.get("model") or "auto"
     provider = key_data.get("provider", "Auto")
+    if provider in ("g4f", "gpt4free", "auto"):
+        provider = "Auto"
     if not messages:
         return jsonify({
             "error": {
