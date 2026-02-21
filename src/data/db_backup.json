@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "token": "d0b15cd5-2bc5-4661-bbb2-9e6bc6fed2e7",
+      "provider": "PollinationsAI",
+      "model": "openai",
+      "system_prompt": "",
+      "message_history": false,
+      "username": "dzeckyete",
+      "password": "scrypt:32768:8:1$hvR69ywvVuAAiOGQ$4245689b906165a1f04fd2d86e4be76151128cd85083e4367c7654b18b214b05b43ef5ae930c90eec7550cae6d0e74a304bc641e8c411c41a7eea134b128834f",
+      "chat_history": ""
+    }
+  ],
+  "api_keys": [
+    {
+      "id": "5808dbfb-cb0d-42b1-8941-ac7b6699ecf6",
+      "api_key": "sk-dzeck-bc1a4d8ccc0b1a9b5e8cb4e851af0888591bb4a993b2fc30",
+      "provider": "PollinationsAI",
+      "model": "openai",
+      "label": "test-key",
+      "created_by": "dzeckyete",
+      "created_at": 1771663129.8872879,
+      "last_used_at": null,
+      "usage_count": 0,
+      "is_active": true,
+      "base_url": "https://api-gateway--ngatwhb.replit.app"
+    }
+  ],
+  "exported_at": 1771663129.930975
+}
