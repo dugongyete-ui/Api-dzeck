@@ -1814,10 +1814,10 @@ def _start_keep_alive():
             url = f"{deploy_url.rstrip('/')}/ping"
         else:
             replit_domain = os.environ.get('REPLIT_DEV_DOMAIN', '') or os.environ.get('REPLIT_DOMAINS', '').split(',')[0].strip()
-            if not replit_domain:
-                url = "http://127.0.0.1:5000/ping"
-            else:
+            if replit_domain:
                 url = f"https://{replit_domain}/ping"
+            else:
+                url = f"{PRODUCTION_URL}/ping"
         logger.info(f"Keep-alive started, pinging {url} every 4 minutes")
         while True:
             try:

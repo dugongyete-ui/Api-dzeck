@@ -33,18 +33,18 @@
         "type": 307
       },
       {
-        "source": "/api/generate-token",
-        "destination": "https://api-dzeck--mio7wxa.replit.app/api/generate-token",
+        "source": "/generatetoken",
+        "destination": "https://api-dzeck--mio7wxa.replit.app/generatetoken",
         "type": 307
       },
       {
-        "source": "/api/api-keys",
-        "destination": "https://api-dzeck--mio7wxa.replit.app/api/api-keys",
+        "source": "/api/apikeys",
+        "destination": "https://api-dzeck--mio7wxa.replit.app/api/apikeys",
         "type": 307
       },
       {
-        "source": "/api/api-keys/**",
-        "destination": "https://api-dzeck--mio7wxa.replit.app/api/api-keys/:splat",
+        "source": "/api/apikeys/**",
+        "destination": "https://api-dzeck--mio7wxa.replit.app/api/apikeys/:splat",
         "type": 307
       },
       {
