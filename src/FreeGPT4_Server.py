@@ -64,7 +64,7 @@ def _get_allowed_origins():
     origins = [
         "https://api-dzeck.web.app",
         "https://api-dzeck.firebaseapp.com",
-        "https://api-gateway--manyse.replit.app",
+        "https://api-dzeck--lizqz5hk.replit.app",
         "http://localhost:5000",
     ]
     dev_domain = os.environ.get('REPLIT_DEV_DOMAIN', '')

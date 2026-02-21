@@ -9,27 +9,27 @@
     "redirects": [
       {
         "source": "/api/chat",
-        "destination": "https://api-gateway--manyse.replit.app/api/chat",
+        "destination": "https://api-dzeck--lizqz5hk.replit.app/api/chat",
         "type": 307
       },
       {
         "source": "/v1/chat/completions",
-        "destination": "https://api-gateway--manyse.replit.app/v1/chat/completions",
+        "destination": "https://api-dzeck--lizqz5hk.replit.app/v1/chat/completions",
         "type": 307
       },
       {
         "source": "/stream",
-        "destination": "https://api-gateway--manyse.replit.app/stream",
+        "destination": "https://api-dzeck--lizqz5hk.replit.app/stream",
         "type": 307
       },
       {
         "source": "/health",
-        "destination": "https://api-gateway--manyse.replit.app/health",
+        "destination": "https://api-dzeck--lizqz5hk.replit.app/health",
         "type": 307
       },
       {
         "source": "/ping",
-        "destination": "https://api-gateway--manyse.replit.app/ping",
+        "destination": "https://api-dzeck--lizqz5hk.replit.app/ping",
         "type": 307
       }
     ],
