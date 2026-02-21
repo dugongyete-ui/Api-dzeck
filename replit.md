@@ -10,16 +10,13 @@ Api Dzeck Ai Web API provides a self-hosted, free HTTP interface to various Larg
 - No image generation features (removed - were blocked/non-functional)
 
 ## Recent Changes (2026-02-21)
-- **Fixed ALL URLs to production**: Every URL reference now uses `https://api-dzeck--lizqz5hk.replit.app` (the correct deployment URL). Removed all references to dev/preview URLs.
-- **PRODUCTION_URL constant**: Server now has `PRODUCTION_URL` and `_get_production_base_url()` helper to always return the correct URL, never dev URLs.
-- **API key endpoints fixed**: API key list and generate endpoints now show production URL instead of dev URL. Old dev URLs in database auto-corrected.
-- **OpenAI-compatible response format**: `/v1/chat/completions` now returns complete official OpenAI format with `system_fingerprint`, `logprobs`, proper `usage` token counts, `service_tier`, and detailed error objects with `code`, `param`, `type`, `message`.
-- **API key validation improved**: Checks for disabled keys, returns proper error codes (`missing_api_key`, `invalid_api_key`, `api_key_disabled`, `missing_messages`).
-- **Updated api-config.js**: API_BASE changed to production deployment URL.
-- **Updated firebase.json**: All redirects now point to production deployment URL.
-- **Updated deploy.sh**: Now uses hardcoded production deployment URL.
-- **CORS expanded**: Production deployment URL added to allowed origins list.
-- **Keep-alive improved**: Uses REPLIT_DEPLOYMENT_URL in production, falls back to dev domain or localhost.
+- **Migrated to new Replit project**: All URLs updated from `api-dzeck--lizqz5hk.replit.app` to `https://api-dzeck--mio7wxa.replit.app`.
+- **PRODUCTION_URL updated**: Server, deploy.sh, api-config.js, firebase.json all point to new domain.
+- **Firebase redirects expanded**: Added redirects for `/api/apikeys`, `/api/apikeys/**`, `/generatetoken`, `/api/auth/**`, `/api/conversations/**`, `/api/chat-history`, `/api/chat-settings`, `/api/model-info`, `/api/settings/**`, `/api/providers-data`, `/api/users/**`.
+- **deploy.sh improved**: Now does global URL replacement in firebase.json and also updates PRODUCTION_URL in server code.
+- **Deploy config**: Set to autoscale deployment for production.
+- **Keep-alive improved**: Falls back to PRODUCTION_URL instead of localhost when no Replit env vars available.
+- **Database**: New PostgreSQL database (fresh). API keys from old project are lost - need to regenerate. User `dzeckyete` auto-created on startup.
 
 ## Changes (2026-02-20)
 - **Fixed Firebase API redirect**: firebase.json now has `redirects` for `/api/chat`, `/v1/chat/completions`, `/stream`, `/health`, `/ping` that 307-redirect to Replit backend. Previously, all paths were caught by the `**` rewrite to index.html, causing API calls to Firebase URL to return HTML instead of JSON.

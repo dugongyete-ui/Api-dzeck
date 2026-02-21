@@ -41,7 +41,7 @@ externalPort = 80
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["sh", "-c", "python src/FreeGPT4_Server.py --port 5000 --enable-gui --password admin12345 --enable-virtual-users --enable-history"]
+run = ["bash", "-c", "cd /home/runner/workspace/src && python FreeGPT4_Server.py --port 5000 --enable-gui --password admin12345 --enable-virtual-users --enable-history"]
 build = ["bash", "-c", "pip install gunicorn"]
 publicDir = "public"
 
